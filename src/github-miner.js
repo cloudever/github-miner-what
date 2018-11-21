@@ -8,12 +8,16 @@ export type SearchQuery = {
   [key: SearchField]: string
 };
 
-export type ResponseFieldSet = {
+export type SearchFieldSet = {};
+
+export type SearchResult = Array<{
+  location: string,
   username: string,
-  repose: [string]
-};
+  repos: [string]
+}>;
 
 interface GithubMinerInterface {
+  constructor: (adapter: GithubMinerParams) => mixed;
   search: (query: SearchQuery) => SearchResult;
 }
 
@@ -23,8 +27,11 @@ class GithubMiner implements GithubMinerInterface {
     this.adapter = adapter;
   }
 
-  search = async (searchQuery: SearchQuery, responseFields) => {
-    const searchResponse = await this.adapter.resolve(searchQuery);
+  search = async (
+    searchQuery: SearchQuery,
+    searchFieldSet: SearchFieldSet
+  ): ResponseFieldSet => {
+    const searchResponse = await this.adapter.resolve(searchFieldSet);
     return searchResponse;
   };
 }
