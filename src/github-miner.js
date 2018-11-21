@@ -8,7 +8,16 @@ export type SearchQuery = {
   [key: SearchField]: string
 };
 
-class GithubMiner {
+export type ResponseFieldSet = {
+  username: string,
+  repose: [string]
+};
+
+interface GithubMinerInterface {
+  search: (query: SearchQuery) => SearchResult;
+}
+
+class GithubMiner implements GithubMinerInterface {
   constructor(params: GithubMinerParams) {
     const { adapter } = params;
     this.adapter = adapter;
