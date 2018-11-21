@@ -31,8 +31,9 @@ class GithubMiner implements GithubMinerInterface {
     searchQuery: SearchQuery,
     searchFieldSet: SearchFieldSet
   ): ResponseFieldSet => {
-    const searchResponse = await this.adapter.resolve(searchFieldSet);
-    return searchResponse;
+    const response = await this.adapter.resolve(searchQuery, searchFieldSet);
+
+    return response;
   };
 }
 
